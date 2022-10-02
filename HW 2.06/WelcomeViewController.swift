@@ -8,16 +8,16 @@
 import UIKit
 
 class WelcomeViewController: UIViewController {
-
+    
     @IBOutlet var welcomeLabel: UILabel!
     var nameUser: String!
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         welcomeLabel.text = "Welcome,\(nameUser!)!"
+        view.backgroundColor = UIColor.systemMint
     }
     
     @IBAction func LogoutButton() {
-        
     }
 }

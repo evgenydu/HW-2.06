@@ -14,22 +14,13 @@ class LoginViewController: UIViewController {
     let userName = "1"
     let userPass = "1"
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // 1111 Do any additional setup after loading the view.
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeVC = segue.destination as? WelcomeViewController else { return }
         welcomeVC.nameUser = userNameTF.text
-        
     }
+    
     @IBAction func loginButton() {
-        if userNameTF.text == userName && passwordTF.text == userPass {
-            return
-        } else {
+        if userNameTF.text != userName && passwordTF.text != userPass {
             passwordTF.text = ""
             Warning()
         }
@@ -56,4 +47,8 @@ class LoginViewController: UIViewController {
         present(alertLogin, animated: true)
     }
     
+    @IBAction func unwind(for segue: UIStoryboardSegue) {
+        userNameTF.text = ""
+        passwordTF.text = ""
+    }
 }
