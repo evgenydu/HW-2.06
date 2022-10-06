@@ -17,7 +17,4 @@ class WelcomeViewController: UIViewController {
         welcomeLabel.text = "Welcome,\(nameUser!)!"
         view.backgroundColor = UIColor.systemMint
     }
-    
-    @IBAction func LogoutButton() {
-    }
 }

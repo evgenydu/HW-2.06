@@ -11,8 +11,8 @@ class LoginViewController: UIViewController {
     @IBOutlet var userNameTF: UITextField!
     @IBOutlet var passwordTF: UITextField!
     
-    let userName = "1"
-    let userPass = "1"
+    private let userName = "1"
+    private let userPass = "1"
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeVC = segue.destination as? WelcomeViewController else { return }
@@ -20,35 +20,29 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginButton() {
-        if userNameTF.text != userName && passwordTF.text != userPass {
-            passwordTF.text = ""
-            Warning()
+        guard userNameTF.text == userName, passwordTF.text == userPass else {
+            warning(title: "Oops!", message: "You name or pass incorect")
+            return
         }
     }
     
-    @IBAction func RemindUserName() {
-        let reminderLogin = UIAlertController(title: "Oops!", message: "You name is 1", preferredStyle: .alert)
-        let reminderButton = UIAlertAction(title: "OK", style: .cancel)
-        reminderLogin.addAction(reminderButton)
-        present(reminderLogin, animated: true)
-    }
-    
-    @IBAction func RemindPassword() {
-        let reminderPassword = UIAlertController(title: "Oops!", message: "You password is 1", preferredStyle: .alert)
-        let reminderButton = UIAlertAction(title: "OK", style: .cancel)
-        reminderPassword.addAction(reminderButton)
-        present(reminderPassword, animated: true)
-    }
-    
-    func Warning() {
-        let alertLogin = UIAlertController(title: "Oops!", message: "You name or password incorrect", preferredStyle: .alert)
-        let alertButton = UIAlertAction(title: "OK", style: .cancel)
-        alertLogin.addAction(alertButton)
-        present(alertLogin, animated: true)
+    @IBAction func remindUserNameAndPass(_ sender: UIButton) {
+        sender.tag == 0
+        ? warning(title: "Oops!", message: "Your name is \(userName)")
+        : warning(title: "Oops!", message: "Your pass is \(userPass)")
     }
     
     @IBAction func unwind(for segue: UIStoryboardSegue) {
         userNameTF.text = ""
         passwordTF.text = ""
+    }
+    
+    private func warning(title: String, message: String, textField: UITextField? = nil) {
+        let alertLogin = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertButton = UIAlertAction(title: "OK", style: .cancel) { _ in
+            textField?.text = ""
+        }
+        alertLogin.addAction(alertButton)
+        present(alertLogin, animated: true)
     }
 }
